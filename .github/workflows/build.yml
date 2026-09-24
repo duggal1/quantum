@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  dmg:
+    # Apple Silicon runner, matching the arm64 target in build.sh
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build app and DMG
+        run: |
+          uname -m
+          ./dmg.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Quantum-dmg
+          path: Quantum.dmg
+
+      - name: Attach DMG to release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" Quantum.dmg --title "Quantum $GITHUB_REF_NAME" --generate-notes

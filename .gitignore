@@ -1,0 +1,5 @@
+# Build output — rebuild with ./build.sh or ./dmg.sh
+Quantum.app/
+Quantum.dmg
+
+.DS_Store
