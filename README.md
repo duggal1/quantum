@@ -8,10 +8,20 @@ It exists to answer one question: how little code does a browser you'd actually 
 
 ## Download
 
-Grab `Quantum.dmg` from the [latest release](../../releases/latest), open it, and drag Quantum into Applications.
+Grab `Quantum.dmg` from the [latest release](../../releases/latest), open it, and drag **Quantum** into Applications.
+
+### First launch
+
+Quantum is free, and it stays free. It's signed with a local ad-hoc signature instead of a paid Apple Developer certificate, so macOS blocks the very first launch and you have to allow it once:
+
+1. Open Quantum from Applications. macOS says it can't be opened, or that the developer can't be verified — click **Done**.
+2. Open **System Settings → Privacy & Security** and scroll down to the **Security** section.
+3. Click **Open Anyway** and confirm with your password or Touch ID.
+4. Open Quantum again. It launches normally from then on — macOS remembers.
+
+No Terminal and no developer account needed. If you prefer the command line, `xattr -dr com.apple.quarantine /Applications/Quantum.app` does the same thing.
 
 - **Apple Silicon only.** Built for arm64 on macOS 15 or later.
-- The app is ad-hoc signed, not notarized, so macOS will ask the first time. Right-click the app and choose **Open**, or run `xattr -dr com.apple.quarantine /Applications/Quantum.app`.
 
 ## Demo
 
@@ -79,7 +89,7 @@ Site theme detection samples what a page actually looks like and re-skins the dr
 
 ## Known limitations
 
-- Ad-hoc signed, so Gatekeeper needs one right-click on first launch.
+- Ad-hoc signed, not notarized, so the first launch needs the **Privacy & Security → Open Anyway** confirmation. Notarizing would mean a paid Apple Developer account, and Quantum is meant to cost nothing.
 - Apple Silicon and macOS 15+ only.
 - Suggestions come from your local history plus Google's autocomplete endpoint. Keeping even fewer bits of data in the cloud was a simple query with no tracking, and it means no Apple suggest service — that isn't a public API.
 
