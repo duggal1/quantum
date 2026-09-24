@@ -608,9 +608,10 @@ private final class Quantum: NSObject, NSApplicationDelegate, NSTextFieldDelegat
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.regular)
         NSApp.appearance = NSAppearance(named: .aqua)
-        if let iconURL = Bundle.main.url(forResource: "AppIcon", withExtension: "icns"), let icon = NSImage(contentsOf: iconURL) {
-            NSApp.applicationIconImage = icon
-        }
+        // No applicationIconImage override on purpose. macOS 26+ re-styles every app icon for the
+        // current Icon & widget style, and a custom image set here only applies while Quantum runs:
+        // the Dock fell back to the system's generated black tile the moment the app quit.
+        // Letting AppKit use the bundle icon keeps the running and closed icons identical.
         makeMenus()
         window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1050, height: 730), styleMask: [.titled, .closable, .miniaturizable, .resizable], backing: .buffered, defer: false)
         window.title = "Quantum"
